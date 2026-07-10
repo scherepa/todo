@@ -1,7 +1,23 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/', [TaskController::class, 'welcome'])->name('home');
+
+Route::prefix('tasks')
+    ->controller(TaskController::class)
+    ->group(function() {
+        // Fetch All ajax(if needed reload for only tasks without refresh or if decided on polling)
+        Route::get('/', 'tasksFetchAllAjax')->name('fetchAllTasks');
+        // Task View 
+        Route::get('/{id}', 'taskFetchOneAjax')->where('id', '[0-9]+')->name('fetchOneTask');
+        // Edit task
+        Route::post('/edit/{id}', 'taskEditAjax')->where('id', '[0-9]+')->name('updateTask');
+        // Create task
+        Route::post('/', 'taskCreateAjax')->name('createTask');
+        // Delete task(Ajax)
+        Route::post('/{id}', 'taskDestroyAjax')->where('id', '[0-9]+')->name('destroyTask');
+    });
