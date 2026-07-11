@@ -16,6 +16,8 @@ Route::prefix('tasks')
         Route::get('/{id}', 'taskFetchOneAjax')->where('id', '[0-9]+')->name('fetchOneTask');
         // Edit task
         Route::post('/edit/{id}', 'taskEditAjax')->where('id', '[0-9]+')->name('updateTask');
+        // Toggle task
+        Route::post('/{id}/toggle', 'taskToggleAjax')->where('id', '[0-9]+')->name('toggleTask');
         // Create task
         Route::post('/', 'taskCreateAjax')->name('createTask');
         // Delete task(Ajax)
