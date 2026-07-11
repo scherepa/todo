@@ -11,7 +11,7 @@
 
 @push('scripts')
 <script type='module'>  
-function loadTasks(url) {
+function loadTasks(url, target = '') {
     const data = {
         search: $('#search_todos').val() ?? '',
         status: $('#filter_todos').val() ?? 'all'
@@ -20,11 +20,16 @@ function loadTasks(url) {
         url: url,
         type: 'GET',
         data: data,
+        beforeSend: function() {
+            if (target !== '') {
+                $(target).prop('disabled', true);
+            }
+        },
         success: function(response) {
             $('#tasks_card').html(response.html);
             $('#pagination_links a').on('click', function(e) {
                 e.preventDefault();
-                loadTasks($(this).attr('href'));
+                loadTasks($(this).attr('href'), '#pagination_links a');
             });
             $('.deleteTask').on('click', function() {
                 let taskId = $(this).data('ps');
@@ -34,17 +39,15 @@ function loadTasks(url) {
                     type: 'POST',
                     data: [],
                     success: function(response) {
-                        //parse and append
-                        console.log(response)
                         let taskId = response.id;
                         if (!taskId) {
                             return;
                         }
-                        
-                        loadTasks(`tasks/?page=${currentPage}`);
+                        loadTasks(`tasks/?page=${currentPage}`, '.deleteTask');
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    fail: function(jqXHR, textStatus, errorThrown) {
                         loadTasks(`tasks/?page=${currentPage}`);
+                        console.log(textStatus);
                     }
                 });
             });
@@ -59,16 +62,17 @@ function loadTasks(url) {
                         completed: isCompleted,
                     },
                     success: function(response) {
-                        loadTasks(`tasks/?page=${currentPage}`);
+                        loadTasks(`tasks/?page=${currentPage}`, '.updateTask');
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    fail: function(jqXHR, textStatus, errorThrown) {
                         loadTasks(`tasks/?page=${currentPage}`);
+                        console.log(textStatus);
                     }
                 });
             });
 
             $('#apply_filters').on('click', function() {
-                    loadTasks(`tasks/?page=1`);
+                    loadTasks(`tasks/?page=1`, '#apply_filters');
             });
             $('#saveTask').on('click', function (e) {
                 e.preventDefault();
@@ -88,13 +92,17 @@ function loadTasks(url) {
                         $('#title').val('');
                         $('#completed').prop('checked', false);
                         let currentPage = $('#current_page').val() ?? 1;
-                        loadTasks(`tasks/?page=${currentPage}`);
+                        loadTasks(`tasks/?page=${currentPage}`, '#saveTask');
                     }
                 });
                 
-            });
-            return;   
+            });  
+        },
+        complete: function() {
+            if (target !== '') {
+                $(target).prop('disabled', false);
             }
+        }
     });
 } 
 $(document).ready(function(){

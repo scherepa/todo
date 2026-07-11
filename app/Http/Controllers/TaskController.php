@@ -25,21 +25,25 @@ class TaskController extends Controller
      * @return View
      */
     public function welcome(): View
-    {
-        return view('pages.todos');
+    {Log::info(config('devversion.dev_version', 1), []);
+        return config('devversion.dev_version', 1) === 1 ?
+        view('welcome') :
+        view('pages.todos');
     }
 
     /**
      * Fetch task all
      *
-     * 
+     * @param Request $request
      * @return JsonResponse
      */
     public function tasksFetchAllAjax(Request $request): JsonResponse
-    {   
-        return response()->json(
-            $this->grouppedTasks($request)
-        );
+    {
+        Log::info(config('devversion.dev_version', 1), []);
+        $responseArr =  config('devversion.dev_version', 1) === 1 ?
+            $this->grouppedTasksV1() :
+            $this->grouppedTasks($request);
+        return  response()->json($responseArr);
     }
 
     /**

@@ -5,7 +5,7 @@
             completed
         </label>
     </div>
-    <div class="btn btn-outline-danger btn-sm deleteTask btn-pill py-0" data-ps={{ $task->id }}>
+    <button class="btn btn-outline-danger btn-sm deleteTask btn-pill py-0" data-ps={{ $task->id }}>
         <small>delete</small>
-    </div>
+    </button>
 </div>
