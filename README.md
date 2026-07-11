@@ -1,58 +1,44 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Todos
+## Current version is 2
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## What is done
 
-## About Laravel
+* in both versions create, update, delete all via ajax but different way. no refresh as desired
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* there is no refresh in both versions. on version 2 search and filter maybe applyed
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* on version 2 more separation into small components allthow all js left on module(I'm mostly backend) and feel not comfortable with it
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    * #### remarks
 
-## Learning Laravel
+        * on version 1 it is legacy on front(inspired from my 4 years ago first project can be seen on github ecommerce). it was overcomplecated by me... but you need to see progress
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+        * as have not been asked to make permitions and connect it to user, policy or authorization have not  been created
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+        * as no figma provided don somehow based on intuition
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+        * basicaly it could be done with Yajra too(used at work, several years ago but used)
 
-## Agentic Development
+## Missed
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+* on front error catch and alert
+* on front and back in v2 search should be validated and clean...
+* fix bootstrap icons
+* extract scripts from page on to separate js files in resources... you said public but vite should map(what mixin done before) from resources to public by himself and compiled
 
-```bash
-composer require laravel/boost --dev
 
-php artisan boost:install
-```
+## Challenges I've faced during development
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+* docker on my PC(have to get used to work/fight with it). At work all I had to do run it or add-host... At home? Well everything(here i can not say that i've not used online search/ free chats to understand what to do when and where permitions changed) and docker relevant configurations please do not take into account
 
-## Contributing
+* at work mostly used vue, so it was a bit hard
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## Possiable improvements
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* still need to clean input search for preventing injection(on front and back)
+* have not added front validation
+* preferable to install pusher or reverb and update on server side event(update/delete/create) via broadcast
+* bootstrap icons unfinished initializations
+* elastic search could help as search by %[searchString]% will not use any index even if to add
+* cache better on redis
