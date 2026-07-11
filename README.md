@@ -15,7 +15,7 @@
 
         * as have not been asked to make permitions and connect it to user, policy or authorization have not  been created
 
-        * as no figma provided don somehow based on intuition
+        * as no figma provided, done somehow based on intuition
 
         * basicaly it could be done with Yajra too(used at work, several years ago but used)
 
