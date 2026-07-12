@@ -5,3 +5,11 @@ window.$ = window.jQuery = $;
 // here installed via: npm install jquery bootstrap @popperjs/core
 import 'bootstrap';
 import '../css/app.css';
+$(function () {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Accept': 'application/json'
+        }
+    });
+});

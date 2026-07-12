@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 use \Throwable;
 
 class TaskController extends Controller
@@ -25,20 +26,23 @@ class TaskController extends Controller
      */
     public function welcome(): View
     {
-        return view('welcome');
+        return config('devversion.dev_version', 1) === 1 ?
+        view('welcome') :
+        view('pages.todos');
     }
 
     /**
      * Fetch task all
      *
-     * 
+     * @param Request $request
      * @return JsonResponse
      */
-    public function tasksFetchAllAjax(): JsonResponse
-    {   
-        return response()->json(
-            $this->grouppedTasks()
-        );
+    public function tasksFetchAllAjax(Request $request): JsonResponse
+    {
+        $responseArr =  config('devversion.dev_version', 1) === 1 ?
+            $this->grouppedTasksV1() :
+            $this->grouppedTasks($request);
+        return  response()->json($responseArr);
     }
 
     /**
@@ -55,6 +59,7 @@ class TaskController extends Controller
         );
     }
 
+
     /**
      * Update Task completed/title
      *
@@ -62,7 +67,7 @@ class TaskController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function taskEditAjax(TaskEditRequest $request, int $id): JsonResponse
+    public function taskToggleAjax(TaskEditRequest $request, int $id): JsonResponse
     {
         // glitch/abuse protection on back end
         $lock = Cache::lock("editing_task_{$id}", 10);

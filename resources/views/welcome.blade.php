@@ -62,14 +62,11 @@
             });
 
             const deleteTask = (id, completed) => {
-                console.log(id);
                 $.ajax({
                     url: `tasks/${id}`,
                     type: 'POST',
                     data: [],
                     success: function(response) {
-                        //parse and append
-                        console.log(response)
                         let taskId = response.id;
                         if (!taskId) {
                             return;
@@ -136,7 +133,6 @@
                         let checked = task.completed ? 'checked' : '';
                         let newAllElement = buildAllRow(task, checked);
                         $('#nav-all').append(newAllElement);
-                        console.log([task,task.completed]);
                         if(task.completed === false) {
                             $('#nav-undergoing').append(newAllElement.replaceAll('all_','undergoing_'));
                         } else {
@@ -160,7 +156,6 @@
                     data: taskData,
                     success: function(response) {
                         //parse and append
-                        console.log(response)
                         let task = response.task;
                         if (!task?.id) {
                             return;
@@ -170,7 +165,6 @@
                         let checked = task.completed ? 'checked' : '';
                         let newAllElement = buildAllRow(task, checked);
                         $('#nav-all').append(newAllElement);
-                        console.log([task,task.completed]);
                         if(task.completed === false) {
                             $('#nav-undergoing').append(newAllElement.replaceAll('all_','undergoing_'));
                         } else {
@@ -195,7 +189,6 @@
                         if (!task.id) {
                             return;
                         }
-                        console.log('in suc', el, completed)
                         let [keyTo, keyFrom, checked] = completed === 1 ? ['completed', 'undergoing','checked']:['undergoing', 'completed', ''];
                         
                         let newEl = buildAllRow(task, checked);
