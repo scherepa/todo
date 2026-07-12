@@ -18,10 +18,10 @@
     </div>
   </div>
 <table class="table">
-  <thead>
+  <thead class="table-light">
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Task Title</th>
+      <th scope="col" style="width: 60%;">Task Title</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
