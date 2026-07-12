@@ -25,7 +25,7 @@ class TaskController extends Controller
      * @return View
      */
     public function welcome(): View
-    {Log::info(config('devversion.dev_version', 1), []);
+    {
         return config('devversion.dev_version', 1) === 1 ?
         view('welcome') :
         view('pages.todos');
@@ -39,7 +39,6 @@ class TaskController extends Controller
      */
     public function tasksFetchAllAjax(Request $request): JsonResponse
     {
-        Log::info(config('devversion.dev_version', 1), []);
         $responseArr =  config('devversion.dev_version', 1) === 1 ?
             $this->grouppedTasksV1() :
             $this->grouppedTasks($request);
