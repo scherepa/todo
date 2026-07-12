@@ -22,7 +22,7 @@
 ## Missed
 
 * on front error catch and alert
-* on front and back in v2 search should be validated and clean...
+* on front in v2 search should be validated and clean...
 * fix bootstrap icons
 * extract scripts from page on to separate js files in resources... you said public but vite should map(what mixin done before) from resources to public by himself and compiled
 
@@ -36,9 +36,8 @@
 
 ## Possiable improvements
 
-* still need to clean input search for preventing injection(on front and back)
-* have not added front validation
+* add front validation and error handler
+* take js out of blade
 * preferable to install pusher or reverb and update on server side event(update/delete/create) via broadcast
 * bootstrap icons unfinished initializations
 * elastic search could help as search by %[searchString]% will not use any index even if to add
-* cache better on redis
