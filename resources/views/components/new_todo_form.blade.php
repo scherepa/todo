@@ -21,4 +21,4 @@
     </div>
     </fieldset>
     <div class="bg-danger text-danger hidden bg-opacity-10" id="new_task_errors"></div>
-</fieldset>
+</div>

@@ -59,41 +59,6 @@ class TaskController extends Controller
         );
     }
 
-    /**
-     * Update Task completed/title
-     *
-     * @param TaskEditRequest $request
-     * @param int $id
-     * @return JsonResponse
-     */
-    public function taskEditAjax(TaskEditRequest $request, int $id): JsonResponse
-    {
-        // glitch/abuse protection on back end
-        $lock = Cache::lock("editing_task_{$id}", 10);
-        if (!$lock->get()) {
-            return response()->json(
-                ['error' => 'already in process'],
-                409
-            );
-        }
-        try {
-            Task::query()
-                ->where('id', $id)
-                ->update($request->validated());
-            return response()->json([
-                'task' => Task::findOrFail($id)
-            ]);
-        } catch(Throwable $error) {
-            // document it
-            report($error);
-            // return general
-            return response()->json([
-                'error' => 'Something went wrong'
-            ], 400);
-        } finally {
-            $lock->release();
-        }   
-    }
 
     /**
      * Update Task completed/title
